@@ -22,6 +22,34 @@ class CategoriaController extends Controller
 
         Categoria::create($validated);
 
-        return redirect()->route('categorias.index')->with('success', 'Categoria criada com sucesso!');
+        return redirect()->route('categorias.index')->with('success', 'Categoria criada!');
+    }
+
+    public function edit($id)
+    {
+        $categoria = Categoria::findOrFail($id);
+        return view('categorias.edit', compact('categoria'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $categoria = Categoria::findOrFail($id);
+        
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'descricao' => 'nullable|string|max:1000',
+        ]);
+
+        $categoria->update($validated);
+
+        return redirect()->route('categorias.index')->with('success', 'Categoria atualizada!');
+    }
+
+    public function destroy($id)
+    {
+        $categoria = Categoria::findOrFail($id);
+        $categoria->delete();
+
+        return redirect()->route('categorias.index')->with('success', 'Categoria excluída!');
     }
 }

@@ -9,6 +9,7 @@ class Produto extends Model
     protected $fillable = [
         'nome',
         'descricao',
-        'preco'
+        'preco',
+        'imagem' // Novo atributo de Produto
     ];
 }
